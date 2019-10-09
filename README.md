@@ -1,5 +1,7 @@
 # scrapy-sticky-meta-params
 
+[![Build Status](https://travis-ci.com/heylouiz/scrapy-sticky-meta-params.svg?branch=master)](https://travis-ci.com/heylouiz/scrapy-sticky-meta-params)
+
 A Scrapy spider middleware that forwards meta params through subsequent requests.
 
 ## What does it do?
