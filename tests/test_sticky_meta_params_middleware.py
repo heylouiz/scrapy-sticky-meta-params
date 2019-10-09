@@ -8,7 +8,7 @@ from scrapy.item import Item, Field
 from scrapy.spiders import Spider
 from scrapy.utils.test import get_crawler
 
-from scrapy_sticky_meta_params import StickyMetaParamsMiddleware
+from scrapy_sticky_meta_params.middleware import StickyMetaParamsMiddleware
 
 
 class MockItem(Item):
