@@ -15,10 +15,10 @@ This middleware simplify the process of carrying information through requests an
         def parse(self, response):
             for param in range(5):
                 yield Request(
-		    "https://www.example.com/next",
-		    meta={"param": param},
-		    callback=self.parse_2
-		)
+                    "https://www.example.com/next",
+                    meta={"param": param},
+                    callback=self.parse_2
+                )
 
         def parse_2(self, response):
             # Get important information from response
@@ -26,10 +26,10 @@ This middleware simplify the process of carrying information through requests an
             # We need to get the param from meta and forward it again in this request
             param = response.meta["param"]
             yield Request(
-	        "https://www.example.com/next",
-		meta={"info": info, "param": param},
-		callback=self.parse_3
-	    )
+                "https://www.example.com/next",
+                meta={"info": info, "param": param},
+                callback=self.parse_3
+            )
 
         def parse_3(self, response):
             yield {
@@ -47,20 +47,20 @@ This middleware simplify the process of carrying information through requests an
         def parse(self, response):
             for param in range(5):
                 yield Request(
-		    "https://www.example.com/next",
-		    meta={"param": param},
-		    callback=self.parse_2
-		)
+                    "https://www.example.com/next",
+                    meta={"param": param},
+                    callback=self.parse_2
+                )
 
         def parse_2(self, response):
             # Get important information from response
             info = response.xpath("//info/text()").get("info")
             # We don"t need to get the "param" value from meta and resend it.
             yield Request(
-	        "https://www.example.com/next",
-		meta={"info": info},
-		callback=self.parse_3
-	    )
+                "https://www.example.com/next",
+                meta={"info": info},
+                callback=self.parse_3
+            )
 
         def parse_3(self, response):
             yield {
