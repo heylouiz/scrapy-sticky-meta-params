@@ -33,6 +33,7 @@ class TestStickyMetaParamsMiddleware(TestCase):
             self.create_middleware(crawler)
 
     def test_sticky_params(self):
+        """A new request.meta must contain the previous response.meta stickied parameter"""
         spider = Spider("dummy")
         spider.sticky_meta_keys = ["param2"]
         crawler = self._get_crawler(spider)
@@ -48,3 +49,19 @@ class TestStickyMetaParamsMiddleware(TestCase):
         for result in middleware.process_spider_output(response, result, spider):
             if isinstance(result, Request):
                 self.assertEqual(result.meta, {"param2": "Stickied!"})
+
+    def test_replace_sticky_params(self):
+        """A stickied parameter should be overriten if the sticked parameter was set in the new request"""
+        spider = Spider("dummy")
+        spider.sticky_meta_keys = ["param2"]
+        crawler = self._get_crawler(spider)
+        middleware = self.create_middleware(crawler)
+        request = Request(self.test_url, meta={"param2": "Stickied!"})
+        response = Response(self.test_url, request=request)
+        result = [
+            Request(self.test_url, meta={"param2": "Replaced"}),
+            MockItem(name="dummy"),  # Add a item just to increase the test coverage
+        ]
+        for result in middleware.process_spider_output(response, result, spider):
+            if isinstance(result, Request):
+                self.assertEqual(result.meta, {"param2": "Replaced"})
