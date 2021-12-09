@@ -1,6 +1,14 @@
 # scrapy-sticky-meta-params
 
+ [![Pypi](https://img.shields.io/pypi/v/scrapy-sticky-meta-params.svg)](https://pypi.org/project/scrapy-sticky-meta-params)
+ [![Python-versions](https://img.shields.io/pypi/pyversions/scrapy-sticky-meta-params.svg)](https://pypi.org/project/scrapy-sticky-meta-params)
+ ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heylouiz/scrapy-sticky-meta-params/Python%20-%20Tests%20and%20Lint/master)
+
 A Scrapy spider middleware that forwards meta params through subsequent requests.
+
+## Install
+
+    pip install scrapy-sticky-meta-params
 
 ## What does it do?
 
