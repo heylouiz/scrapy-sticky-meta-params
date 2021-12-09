@@ -7,7 +7,7 @@ class StickyMetaParamsMiddleware(object):
 
     @classmethod
     def from_crawler(cls, crawler):
-        keys_to_sticky = getattr(crawler.spider, 'sticky_meta_keys', [])
+        keys_to_sticky = getattr(crawler.spider, "sticky_meta_keys", [])
         if not keys_to_sticky:
             raise NotConfigured
         return cls(keys_to_sticky)
@@ -16,7 +16,9 @@ class StickyMetaParamsMiddleware(object):
         self.keys_to_sticky = keys_to_sticky
 
     def process_spider_output(self, response, result, spider):
-        sticky_meta = {k: response.meta[k] for k in self.keys_to_sticky if k in response.meta}
+        sticky_meta = {
+            k: response.meta[k] for k in self.keys_to_sticky if k in response.meta
+        }
         for r in result:
             if not isinstance(r, Request):
                 yield r

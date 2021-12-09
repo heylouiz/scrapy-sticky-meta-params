@@ -1,10 +1,9 @@
-import pytest
-
 from unittest import TestCase
 
+import pytest
 from scrapy.exceptions import NotConfigured
-from scrapy.http import Response, Request
-from scrapy.item import Item, Field
+from scrapy.http import Request, Response
+from scrapy.item import Field, Item
 from scrapy.spiders import Spider
 from scrapy.utils.test import get_crawler
 
@@ -16,9 +15,8 @@ class MockItem(Item):
 
 
 class TestStickyMetaParamsMiddleware(TestCase):
-
     def setUp(self):
-        self.test_url = 'http://www.example.com'
+        self.test_url = "http://www.example.com"
 
     def create_middleware(self, crawler):
         return StickyMetaParamsMiddleware.from_crawler(crawler)
@@ -29,27 +27,24 @@ class TestStickyMetaParamsMiddleware(TestCase):
         return crawler
 
     def test_middleware_not_enabled(self):
-        spider = Spider('dummy')
+        spider = Spider("dummy")
         crawler = self._get_crawler(spider)
         with pytest.raises(NotConfigured):
             self.create_middleware(crawler)
 
     def test_sticky_params(self):
-        spider = Spider('dummy')
-        spider.sticky_meta_keys = ['param2']
+        spider = Spider("dummy")
+        spider.sticky_meta_keys = ["param2"]
         crawler = self._get_crawler(spider)
         middleware = self.create_middleware(crawler)
         request = Request(
-            self.test_url,
-            meta={
-                'param': 'Will not be stickied',
-                'param2': 'Stickied!'
-            })
+            self.test_url, meta={"param": "Will not be stickied", "param2": "Stickied!"}
+        )
         response = Response(self.test_url, request=request)
         result = [
             Request(self.test_url),
-            MockItem(name='dummy')  # Add a item just to increase the test coverage
+            MockItem(name="dummy"),  # Add a item just to increase the test coverage
         ]
         for result in middleware.process_spider_output(response, result, spider):
             if isinstance(result, Request):
-                self.assertEqual(result.meta, {'param2': 'Stickied!'})
+                self.assertEqual(result.meta, {"param2": "Stickied!"})
