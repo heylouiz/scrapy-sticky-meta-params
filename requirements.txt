@@ -1,4 +1,4 @@
 flake8
 pytest
 pytest-cov
-Scrapy==2.5.1
+scrapy>=1.6.0
