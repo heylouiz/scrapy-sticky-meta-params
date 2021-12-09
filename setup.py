@@ -1,20 +1,13 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
+from scrapy_sticky_meta_params import __version__
 
-requirements = []
-
-setup_requirements = [
-    'pytest-runner',
-]
-
-test_requirements = [
-    'pytest',
+requirements = [
+    "scrapy>=2.0"
 ]
 
 setup(
     name='scrapy-sticky-meta-params',
-    version='0.1.0',
+    version=__version__,
     description="A spider middleware that forwards meta params through subsequent requests.",
     author='Luiz Francisco Rodrigues da Silva',
     author_email='luizfrdasilva@gmail.com',
@@ -33,8 +26,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
-    test_suite='tests',
-    tests_require=test_requirements,
-    setup_requires=setup_requirements,
 )

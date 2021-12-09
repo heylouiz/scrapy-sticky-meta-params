@@ -1,4 +1,4 @@
-flake8==3.7.7
-Scrapy==1.6.0
+flake8
 pytest
 pytest-cov
+Scrapy==2.5.1
